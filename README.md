@@ -16,6 +16,15 @@ docker build [-t <your-image-name>] .
 ### Run
 
 ```bash
-docker pull mattykay/kali-linux
 docker run -it mattykay/kali-linux
+```
+
+#### Run with OpenVPN
+
+Make sure to add the `--cap-add=NET_ADMIN --device=/dev/net/tun` arguments to the run command. Can then copy in OpenVPN config file as below (or better yet add a [volume](https://docs.docker.com/storage/volumes/) to the run)
+
+```bash
+docker run -d --cap-add=NET_ADMIN --device=/dev/net/tun --name=kali mattykay/kali-linux
+docker cp my-vpn-config.ovpn kali:/tmp/
+docker exec -it kali /bin/bash
 ```
